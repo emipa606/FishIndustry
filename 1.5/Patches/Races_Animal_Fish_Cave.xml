@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/BiomeDef[defName="Cave"]</xpath>
+    <success>Always</success>
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs/PawnKindDef[defName = "PawnKindDefFishSeasnake" or defName = "PawnKindDefFishMashgon" or defName = "PawnKindDefFishBlueblade"]/naturalBiomes</xpath>
+      <value>
+        <li>Cave</li>
+      </value>
+    </match>
+  </Operation>
+</Patch>
