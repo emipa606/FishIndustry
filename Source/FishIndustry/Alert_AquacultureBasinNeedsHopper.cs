@@ -13,6 +13,11 @@ public class Alert_AquacultureBasinNeedsHopper : Alert
 
     public override AlertReport GetReport()
     {
+        if (ModLister.OdysseyInstalled)
+        {
+            return AlertReport.Inactive;
+        }
+
         var maps = Find.Maps;
         foreach (var map in maps)
         {

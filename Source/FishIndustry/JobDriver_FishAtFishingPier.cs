@@ -11,16 +11,16 @@ public class JobDriver_FishAtFishingPier : JobDriver
 {
     public const int grainCountToAttractFishes = 5;
 
-    public readonly TargetIndex fishingPierIndex = TargetIndex.A;
+    private readonly TargetIndex fishingPierIndex = TargetIndex.A;
 
-    public Mote fishingRodMote;
+    private Mote fishingRodMote;
 
     public override bool TryMakePreToilReservations(bool errorOnFailed)
     {
         return pawn.Reserve(TargetA, job);
     }
 
-    public bool FishingForbiddenOrPierDestroyedOrNoFish()
+    private bool FishingForbiddenOrPierDestroyedOrNoFish()
     {
         var building_FishingPier = TargetThingA as Building_FishingPier;
         return building_FishingPier != null && (building_FishingPier.DestroyedOrNull() ||

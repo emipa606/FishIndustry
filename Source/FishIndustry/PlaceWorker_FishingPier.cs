@@ -7,11 +7,11 @@ namespace FishIndustry;
 
 public class PlaceWorker_FishingPier : PlaceWorker
 {
-    public static int lastMoteUpdateSecond;
+    private static int lastMoteUpdateSecond;
 
-    public static int lastMoteUpdateTick;
+    private static int lastMoteUpdateTick;
 
-    public static IntVec3 lastMotePosition = IntVec3.Invalid;
+    private static IntVec3 lastMotePosition = IntVec3.Invalid;
 
     public override AcceptanceReport AllowsPlacing(BuildableDef checkingDef, IntVec3 loc, Rot4 rot, Map map,
         Thing thingToIgnore = null, Thing thing = null)
@@ -21,19 +21,22 @@ public class PlaceWorker_FishingPier : PlaceWorker
             RemoveLastRespawnRateMote(map);
         }
 
-        if (Util_FishIndustry.GetFishSpeciesList(map.Biome).NullOrEmpty())
+        if (!ModLister.OdysseyInstalled)
         {
-            return new AcceptanceReport("FishIndustry.FishingPier_InvalidBiome".Translate());
-        }
+            if (Util_FishIndustry.GetFishSpeciesList(map.Biome).NullOrEmpty())
+            {
+                return new AcceptanceReport("FishIndustry.FishingPier_InvalidBiome".Translate());
+            }
 
-        if (Util_PlaceWorker.IsNearFishingPier(map, loc, 15f))
-        {
-            return new AcceptanceReport("FishIndustry.TooCloseFishingPier".Translate());
-        }
+            if (Util_PlaceWorker.IsNearFishingPier(map, loc, 15f))
+            {
+                return new AcceptanceReport("FishIndustry.TooCloseFishingPier".Translate());
+            }
 
-        if (Util_PlaceWorker.IsNearFishingZone(map, loc, 15f))
-        {
-            return new AcceptanceReport("FishIndustry.TooCloseFishingZone".Translate());
+            if (Util_PlaceWorker.IsNearFishingZone(map, loc, 15f))
+            {
+                return new AcceptanceReport("FishIndustry.TooCloseFishingZone".Translate());
+            }
         }
 
         if (!Util_Zone_Fishing.IsAquaticTerrain(map, loc + new IntVec3(0, 0, -1).RotatedBy(rot)) ||
@@ -82,7 +85,7 @@ public class PlaceWorker_FishingPier : PlaceWorker
             new Vector3(0f, AltitudeLayer.Silhouettes.AltitudeFor(), 3f).RotatedBy(rot.AsAngle), 1.5f, color);
     }
 
-    public void RemoveLastRespawnRateMote(Map map)
+    private static void RemoveLastRespawnRateMote(Map map)
     {
         if (lastMotePosition.IsValid && lastMotePosition.InBounds(map))
         {
@@ -101,8 +104,13 @@ public class PlaceWorker_FishingPier : PlaceWorker
         lastMotePosition = IntVec3.Invalid;
     }
 
-    public void DisplayMaxFishStockMoteAt(Map map, IntVec3 position, Rot4 rotation)
+    private static void DisplayMaxFishStockMoteAt(Map map, IntVec3 position, Rot4 rotation)
     {
+        if (ModLister.OdysseyInstalled)
+        {
+            return;
+        }
+
         if (!position.InBounds(map))
         {
             return;

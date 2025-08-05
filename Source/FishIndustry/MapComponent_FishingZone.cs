@@ -4,7 +4,7 @@ namespace FishIndustry;
 
 internal class MapComponent_FishingZone(Map map) : MapComponent(map)
 {
-    public const int updatePeriodInTicks = 250;
+    private const int updatePeriodInTicks = 250;
 
     public override void MapComponentTick()
     {

@@ -8,19 +8,19 @@ namespace FishIndustry;
 
 public class JobDriver_FishAtFishingZone : JobDriver
 {
-    public readonly TargetIndex fishPositionIndex = TargetIndex.A;
-    public readonly PathEndMode pathEndMode = PathEndMode.OnCell;
+    private readonly TargetIndex fishPositionIndex = TargetIndex.A;
+    private readonly PathEndMode pathEndMode = PathEndMode.OnCell;
 
-    public IntVec3 cardinalDir = IntVec3.Invalid;
+    private IntVec3 cardinalDir = IntVec3.Invalid;
 
-    public Mote fishingRodMote;
+    private Mote fishingRodMote;
 
     public override bool TryMakePreToilReservations(bool errorOnFailed)
     {
         return pawn.Reserve(TargetLocA, job);
     }
 
-    public bool FishingForbiddenOrInvalidSpot()
+    private bool FishingForbiddenOrInvalidSpot()
     {
         return Map.zoneManager.ZoneAt(TargetB.Cell) is not Zone_Fishing { allowFishing: not false } zone_Fishing ||
                !zone_Fishing.fishingSpots.Contains(TargetLocA);

@@ -73,7 +73,7 @@ public class WorkGiver_FishingPier : WorkGiver_Scanner
         return job;
     }
 
-    public bool HasFoodToAttractFishes(Pawn fisher)
+    private static bool HasFoodToAttractFishes(Pawn fisher)
     {
         foreach (var item in fisher.inventory.innerContainer)
         {

@@ -36,11 +36,11 @@ public static class Util_Zone_Fishing
             ref zoneIsOutdoor, ref zoneIsUnroofed);
         UpdateAffectionIndicators(map, zoneIsOutdoor, zoneIsUnroofed, ref isAffectedByBiome,
             ref isAffectedByToxicFallout, ref isAffectedByBadTemperature);
-        UpdateMaxFishStock(map.Biome, oceanCellsCount + riverCellsCount + marshCellsCount, isAffectedByBiome,
+        UpdateMaxFishStock(map.Biome, oceanCellsCount + riverCellsCount + marshCellsCount,
             isAffectedByToxicFallout, isAffectedByBadTemperature, ref maxFishStock);
     }
 
-    public static void UpdateViableCells(Map map, List<IntVec3> aquaticCells, ref int oceanCellsCount,
+    private static void UpdateViableCells(Map map, List<IntVec3> aquaticCells, ref int oceanCellsCount,
         ref int riverCellsCount, ref int marshCellsCount, ref bool zoneIsOutdoor, ref bool zoneIsUnroofed)
     {
         var toxicFallout = map.GameConditionManager.ConditionIsActive(GameConditionDefOf.ToxicFallout);
@@ -77,7 +77,7 @@ public static class Util_Zone_Fishing
         }
     }
 
-    public static void UpdateAffectionIndicators(Map map, bool zoneIsOutdoor, bool zoneIsUnroofed,
+    private static void UpdateAffectionIndicators(Map map, bool zoneIsOutdoor, bool zoneIsUnroofed,
         ref bool isAffectedByBiome, ref bool isAffectedByToxicFallout, ref bool isAffectedByBadTemperature)
     {
         if (GetBiomeMaxFishStockFactor(map.Biome) < 1f)
@@ -91,13 +91,13 @@ public static class Util_Zone_Fishing
         }
 
         if (zoneIsOutdoor && (map.gameConditionManager.ConditionIsActive(GameConditionDefOf.VolcanicWinter) ||
-                              !map.weatherManager.growthSeasonMemory.GrowthSeasonOutdoorsNow))
+                              map.mapTemperature.OutdoorTemp < -5))
         {
             isAffectedByBadTemperature = true;
         }
     }
 
-    public static void UpdateMaxFishStock(BiomeDef biome, int viableCellsCount, bool isAffectedByBiome,
+    private static void UpdateMaxFishStock(BiomeDef biome, int viableCellsCount,
         bool isAffectedByToxicFallout, bool isAffectedByBadTemperature, ref int maxFishStock)
     {
         var num = 1f;
@@ -141,7 +141,7 @@ public static class Util_Zone_Fishing
             num3 += 0.5f;
         }
 
-        if (isAffectedByBadTemperature && !map.weatherManager.growthSeasonMemory.GrowthSeasonOutdoorsNow)
+        if (isAffectedByBadTemperature && map.mapTemperature.OutdoorTemp < -5)
         {
             num3 += 0.5f;
         }
@@ -150,7 +150,7 @@ public static class Util_Zone_Fishing
         spawnRateFactor /= Settings.fishRespawnRateFactor;
     }
 
-    public static float GetBiomeMaxFishStockFactor(BiomeDef biome)
+    private static float GetBiomeMaxFishStockFactor(BiomeDef biome)
     {
         var result = 1f;
         if (biome == BiomeDefOf.BorealForest)
@@ -174,7 +174,7 @@ public static class Util_Zone_Fishing
         return result;
     }
 
-    public static float GetBiomeFishSpawnRateFactor(BiomeDef biome)
+    private static float GetBiomeFishSpawnRateFactor(BiomeDef biome)
     {
         var result = 1f;
         if (biome == BiomeDefOf.BorealForest)

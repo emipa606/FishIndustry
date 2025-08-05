@@ -7,8 +7,7 @@ namespace FishIndustry;
 
 public static class Util_FishIndustry
 {
-    public static readonly Dictionary<BiomeDef, List<PawnKindDef_FishSpecies>> fishSpeciesListDico =
-        new Dictionary<BiomeDef, List<PawnKindDef_FishSpecies>>();
+    private static readonly Dictionary<BiomeDef, List<PawnKindDef_FishSpecies>> fishSpeciesListDico = new();
 
     public static ThingDef FishingPierDef => ThingDef.Named("FishingPier");
 
@@ -18,25 +17,35 @@ public static class Util_FishIndustry
 
     public static TerrainDef FishingPierFloorMarshDef => TerrainDef.Named("FishingPierFloorMarsh");
 
-    public static ThingDef MoteFishingRodNorthDef => ThingDef.Named("Mote_FishingRodNorth");
+    public static ThingDef MoteFishingRodNorthDef =>
+        ModLister.OdysseyInstalled ? null : ThingDef.Named("Mote_FishingRodNorth");
 
-    public static ThingDef MoteFishingRodEastDef => ThingDef.Named("Mote_FishingRodEast");
+    public static ThingDef MoteFishingRodEastDef =>
+        ModLister.OdysseyInstalled ? null : ThingDef.Named("Mote_FishingRodEast");
 
-    public static ThingDef MoteFishingRodSouthDef => ThingDef.Named("Mote_FishingRodSouth");
+    public static ThingDef MoteFishingRodSouthDef =>
+        ModLister.OdysseyInstalled ? null : ThingDef.Named("Mote_FishingRodSouth");
 
-    public static ThingDef MoteFishingRodWestDef => ThingDef.Named("Mote_FishingRodWest");
+    public static ThingDef MoteFishingRodWestDef =>
+        ModLister.OdysseyInstalled ? null : ThingDef.Named("Mote_FishingRodWest");
 
-    public static ThingDef MoteFishMashgonEastDef => ThingDef.Named("Mote_FishMashgonEast");
+    public static ThingDef MoteFishMashgonEastDef =>
+        ModLister.OdysseyInstalled ? null : ThingDef.Named("Mote_FishMashgonEast");
 
-    public static ThingDef MoteFishMashgonWestDef => ThingDef.Named("Mote_FishMashgonWest");
+    public static ThingDef MoteFishMashgonWestDef =>
+        ModLister.OdysseyInstalled ? null : ThingDef.Named("Mote_FishMashgonWest");
 
-    public static ThingDef MoteFishBluebladeEastDef => ThingDef.Named("Mote_FishBluebladeEast");
+    public static ThingDef MoteFishBluebladeEastDef =>
+        ModLister.OdysseyInstalled ? null : ThingDef.Named("Mote_FishBluebladeEast");
 
-    public static ThingDef MoteFishBluebladeWestDef => ThingDef.Named("Mote_FishBluebladeWest");
+    public static ThingDef MoteFishBluebladeWestDef =>
+        ModLister.OdysseyInstalled ? null : ThingDef.Named("Mote_FishBluebladeWest");
 
-    public static ThingDef MoteFishTailteethEastDef => ThingDef.Named("Mote_FishTailteethEast");
+    public static ThingDef MoteFishTailteethEastDef =>
+        ModLister.OdysseyInstalled ? null : ThingDef.Named("Mote_FishTailteethEast");
 
-    public static ThingDef MoteFishTailteethWestDef => ThingDef.Named("Mote_FishTailteethWest");
+    public static ThingDef MoteFishTailteethWestDef =>
+        ModLister.OdysseyInstalled ? null : ThingDef.Named("Mote_FishTailteethWest");
 
     public static ThingDef OysterDef => ThingDef.Named("Oyster");
 
@@ -46,9 +55,11 @@ public static class Util_FishIndustry
 
     public static ThingDef RawRiceDef => ThingDef.Named("RawRice");
 
-    public static JobDef FishAtFishingPierJobDef => DefDatabase<JobDef>.GetNamed("JobDef_FishAtFishingPier");
+    public static JobDef FishAtFishingPierJobDef =>
+        ModLister.OdysseyInstalled ? null : DefDatabase<JobDef>.GetNamed("JobDef_FishAtFishingPier");
 
-    public static JobDef FishAtFishingZoneJobDef => DefDatabase<JobDef>.GetNamed("JobDef_FishAtFishingZone");
+    public static JobDef FishAtFishingZoneJobDef =>
+        ModLister.OdysseyInstalled ? null : DefDatabase<JobDef>.GetNamed("JobDef_FishAtFishingZone");
 
     public static JobDef AquacultureBasinHarvestJobDef =>
         DefDatabase<JobDef>.GetNamed("JobDef_AquacultureBasinHarvest");
@@ -59,30 +70,39 @@ public static class Util_FishIndustry
     public static JobDef AquacultureBasinMaintainJobDef =>
         DefDatabase<JobDef>.GetNamed("JobDef_AquacultureBasinMaintain");
 
-    public static ThingDef MashgonDef => ThingDef.Named("Mashgon");
+    public static ThingDef MashgonDef => ModLister.OdysseyInstalled ? null : ThingDef.Named("Mashgon");
 
-    public static ThingDef BluebladeDef => ThingDef.Named("Blueblade");
+    public static ThingDef BluebladeDef => ModLister.OdysseyInstalled ? null : ThingDef.Named("Blueblade");
 
-    public static ThingDef TailteethDef => ThingDef.Named("Tailteeth");
+    public static ThingDef TailteethDef => ModLister.OdysseyInstalled ? null : ThingDef.Named("Tailteeth");
 
-    public static PawnKindDef MashgonPawnKindDef => PawnKindDef.Named("PawnKindDefFishMashgon");
+    public static PawnKindDef MashgonPawnKindDef =>
+        ModLister.OdysseyInstalled ? null : PawnKindDef.Named("PawnKindDefFishMashgon");
 
-    public static PawnKindDef BluebladePawnKindDef => PawnKindDef.Named("PawnKindDefFishBlueblade");
+    public static PawnKindDef BluebladePawnKindDef =>
+        ModLister.OdysseyInstalled ? null : PawnKindDef.Named("PawnKindDefFishBlueblade");
 
-    public static PawnKindDef TailteethPawnKindDef => PawnKindDef.Named("PawnKindDefFishTailteeth");
+    public static PawnKindDef TailteethPawnKindDef =>
+        ModLister.OdysseyInstalled ? null : PawnKindDef.Named("PawnKindDefFishTailteeth");
 
     public static string MashgonTexturePath =>
-        PawnKindDef.Named("PawnKindDefFishMashgon").lifeStages.First().bodyGraphicData.texPath;
+        ModLister.OdysseyInstalled
+            ? null
+            : PawnKindDef.Named("PawnKindDefFishMashgon").lifeStages.First().bodyGraphicData.texPath;
 
     public static string MashgonTexturePathWithChangeIcon => "Ui/Gizmos/MashgonWithChangeIcon";
 
     public static string BluebladeTexturePath =>
-        PawnKindDef.Named("PawnKindDefFishBlueblade").lifeStages.First().bodyGraphicData.texPath;
+        ModLister.OdysseyInstalled
+            ? null
+            : PawnKindDef.Named("PawnKindDefFishBlueblade").lifeStages.First().bodyGraphicData.texPath;
 
     public static string BluebladeTexturePathWithChangeIcon => "Ui/Gizmos/BluebladeWithChangeIcon";
 
     public static string TailteethTexturePath =>
-        PawnKindDef.Named("PawnKindDefFishTailteeth").lifeStages.First().bodyGraphicData.texPath;
+        ModLister.OdysseyInstalled
+            ? null
+            : PawnKindDef.Named("PawnKindDefFishTailteeth").lifeStages.First().bodyGraphicData.texPath;
 
     public static string TailteethTexturePathWithChangeIcon => "Ui/Gizmos/TailteethWithChangeIcon";
 
@@ -96,7 +116,7 @@ public static class Util_FishIndustry
         return fishSpeciesListDico.TryGetValue(biome);
     }
 
-    public static List<PawnKindDef_FishSpecies> BuildFishSpeciesListForMap(BiomeDef biome)
+    private static List<PawnKindDef_FishSpecies> BuildFishSpeciesListForMap(BiomeDef biome)
     {
         var list = new List<PawnKindDef_FishSpecies>();
         foreach (var item in DefDatabase<PawnKindDef>.AllDefsListForReading)

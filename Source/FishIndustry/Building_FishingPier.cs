@@ -8,9 +8,9 @@ namespace FishIndustry;
 
 internal class Building_FishingPier : Building_WorkTable
 {
-    public const float baseFishSpawnMtbPier = 240000f;
+    private const float baseFishSpawnMtbPier = 240000f;
 
-    public const float aquaticAreaRadius = 10f;
+    private const float aquaticAreaRadius = 10f;
 
     public readonly List<IntVec3> aquaticCells = [];
 
@@ -18,40 +18,40 @@ internal class Building_FishingPier : Building_WorkTable
 
     public bool allowUsingGrain = true;
 
-    public IntVec3 bankCell = new IntVec3(0, 0, 0);
-    public string bankCellTerrainDefAsString;
+    public IntVec3 bankCell = new(0, 0, 0);
+    private string bankCellTerrainDefAsString;
 
-    public float cachedFishSpawnMtb;
+    private float cachedFishSpawnMtb;
 
-    public string cachedSpeciesInZone = "";
+    private string cachedSpeciesInZone = "";
 
-    public IntVec3 fishingSpotCell = new IntVec3(0, 0, 0);
+    public IntVec3 fishingSpotCell = new(0, 0, 0);
 
     public int fishStock = 1;
 
-    public bool isAffectedByBadTemperature;
+    private bool isAffectedByBadTemperature;
 
-    public bool isAffectedByBiome;
+    private bool isAffectedByBiome;
 
-    public bool isAffectedByToxicFallout;
+    private bool isAffectedByToxicFallout;
 
-    public int marshCellsCount;
+    private int marshCellsCount;
 
-    public int maxFishStock = -1;
+    private int maxFishStock = -1;
 
-    public IntVec3 middleCell = new IntVec3(0, 0, 0);
+    public IntVec3 middleCell = new(0, 0, 0);
 
-    public string middleCellTerrainDefAsString;
+    private string middleCellTerrainDefAsString;
 
-    public int oceanCellsCount;
+    private int oceanCellsCount;
 
-    public IntVec3 riverCell = new IntVec3(0, 0, 0);
+    public IntVec3 riverCell = new(0, 0, 0);
 
-    public int riverCellsCount;
+    private int riverCellsCount;
 
-    public string riverCellTerrainDefAsString;
+    private string riverCellTerrainDefAsString;
 
-    public int viableCellsCount => oceanCellsCount + riverCellsCount + marshCellsCount;
+    private int viableCellsCount => oceanCellsCount + riverCellsCount + marshCellsCount;
 
     public override void SpawnSetup(Map map, bool respawningAfterLoad)
     {
@@ -90,6 +90,11 @@ internal class Building_FishingPier : Building_WorkTable
     public override void ExposeData()
     {
         base.ExposeData();
+        if (ModLister.OdysseyInstalled)
+        {
+            return;
+        }
+
         Scribe_Values.Look(ref bankCellTerrainDefAsString, "bankTerrainCellDefAsString");
         Scribe_Values.Look(ref middleCellTerrainDefAsString, "middleTerrainCellDefAsString");
         Scribe_Values.Look(ref riverCellTerrainDefAsString, "riverTerrainCellDefAsString");
@@ -109,6 +114,12 @@ internal class Building_FishingPier : Building_WorkTable
     public override void TickRare()
     {
         base.TickRare();
+
+        if (ModLister.OdysseyInstalled)
+        {
+            return;
+        }
+
         UpdateCells();
         Util_Zone_Fishing.UpdateZoneProperties(Map, aquaticCells, ref oceanCellsCount, ref riverCellsCount,
             ref marshCellsCount, ref isAffectedByBiome, ref isAffectedByToxicFallout, ref isAffectedByBadTemperature,
@@ -136,7 +147,7 @@ internal class Building_FishingPier : Building_WorkTable
         }
     }
 
-    public void UpdateCells()
+    private void UpdateCells()
     {
         aquaticCells.Clear();
         foreach (var item in GenRadial.RadialCellsAround(fishingSpotCell, aquaticAreaRadius, false))
@@ -154,6 +165,11 @@ internal class Building_FishingPier : Building_WorkTable
         foreach (var gizmo in base.GetGizmos())
         {
             yield return gizmo;
+        }
+
+        if (ModLister.OdysseyInstalled)
+        {
+            yield break;
         }
 
         var command_Toggle = new Command_Toggle
@@ -180,6 +196,11 @@ internal class Building_FishingPier : Building_WorkTable
 
     public override string GetInspectString()
     {
+        if (ModLister.OdysseyInstalled)
+        {
+            return base.GetInspectString();
+        }
+
         var stringBuilder = new StringBuilder();
         if (Util_FishIndustry.GetFishSpeciesList(Map.Biome).NullOrEmpty())
         {

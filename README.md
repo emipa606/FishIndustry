@@ -1,10 +1,11 @@
-# [FishIndustry (Continued)]()
+# [FishIndustry (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3456386887)
 
 ![Image](https://i.imgur.com/buuPQel.png)
 
 Update of Rikikis mod https://steamcommunity.com/sharedfiles/filedetails/?id=758810805
 
 - Removed the overwriting of defs and the custom patchoperation
+- If Odyssey is installed, only the fishing pier will be loaded as the DLCs fishing conflicts with the fishes in this mod.
 
 ![Image](https://i.imgur.com/pufA0kM.png)
 	
@@ -39,10 +40,12 @@ There is so much water in this world and you always dreamt to eat a fresh grille
 
 -  See if the the error persists if you just have this mod and its requirements active.
 -  If not, try adding your other mods until it happens again.
--  Post your error-log using [HugsLib](https://steamcommunity.com/workshop/filedetails/?id=818773962) or the standalone [Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404) and command Ctrl+F12
+-  Post your error-log using the [Log Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404) or the standalone [Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404) and command Ctrl+F12
 -  For best support, please use the Discord-channel for error-reporting.
 -  Do not report errors by making a discussion-thread, I get no notification of that.
 -  If you have the solution for a problem, please post it to the GitHub repository.
 -  Use [RimSort](https://github.com/RimSort/RimSort/releases/latest) to sort your mods
 
+ 
 
+[![Image](https://img.shields.io/github/v/release/emipa606/FishIndustry?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/3456386887) | tags:  aquaculture, fishing

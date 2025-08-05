@@ -11,11 +11,11 @@ namespace FishIndustry;
 [StaticConstructorOnStartup]
 internal class Building_AquacultureBasin : Building_WorkTable
 {
-    public const int updatePeriodInTicks = 250;
+    private const int updatePeriodInTicks = 250;
 
-    public const int foodDispensePeriodInTicks = 60000;
+    private const int foodDispensePeriodInTicks = 60000;
 
-    public const float minWaterQuality = 0.1f;
+    private const float minWaterQuality = 0.1f;
 
     public const float waterCompleteDegradationPeriodInTicks = 30000f;
 
@@ -23,54 +23,54 @@ internal class Building_AquacultureBasin : Building_WorkTable
 
     public const int maintenanceCompleteDegradationPeriodInTicks = 60000;
 
-    public const float maintenanceVariation = 0.004166667f;
+    private const float maintenanceVariation = 0.004166667f;
 
-    public const int breedingProgressPerMaintenanceInTicks = 5000;
+    private const int breedingProgressPerMaintenanceInTicks = 5000;
 
-    public const int microFungusReductionPerMaintenanceInTicks = 20000;
+    private const int microFungusReductionPerMaintenanceInTicks = 20000;
 
-    public const int fishMotePeriodInTicks = 600;
+    private const int fishMotePeriodInTicks = 600;
 
-    public static readonly Material mashgonTexture = MaterialPool.MatFrom(Util_FishIndustry.MashgonTexturePath);
+    private static readonly Material mashgonTexture = MaterialPool.MatFrom(Util_FishIndustry.MashgonTexturePath);
 
-    public static readonly Material bluebladeTexture = MaterialPool.MatFrom(Util_FishIndustry.BluebladeTexturePath);
+    private static readonly Material bluebladeTexture = MaterialPool.MatFrom(Util_FishIndustry.BluebladeTexturePath);
 
-    public static readonly Material tailTeethTexture = MaterialPool.MatFrom(Util_FishIndustry.TailteethTexturePath);
+    private static readonly Material tailTeethTexture = MaterialPool.MatFrom(Util_FishIndustry.TailteethTexturePath);
 
-    public static readonly Material microFungusTexture =
+    private static readonly Material microFungusTexture =
         MaterialPool.MatFrom("Effects/MicroFungus", ShaderDatabase.Transparent);
 
-    public int breedingProgressInTicks;
+    private readonly Vector3 breedingSpeciesScale = new(0.5f, 1f, 0.5f);
 
-    public Matrix4x4 breedingSpeciesMatrix;
+    private readonly Vector3 microFungusScale = new(3f, 1f, 3f);
 
-    public Vector3 breedingSpeciesScale = new Vector3(0.5f, 1f, 0.5f);
+    private int breedingProgressInTicks;
 
-    public Material breedingSpeciesTexture;
+    private Matrix4x4 breedingSpeciesMatrix;
+
+    private Material breedingSpeciesTexture;
 
     public PawnKindDef desiredSpeciesDef = Util_FishIndustry.BluebladePawnKindDef;
 
     public bool fishesAreFed;
 
-    public float fishesHealth = 1f;
+    private float fishesHealth = 1f;
 
-    public bool foodIsAvailable;
+    private bool foodIsAvailable;
 
-    public float maintenanceQuality = 1f;
+    private float maintenanceQuality = 1f;
 
-    public float microFungusFadingFactor = 1f;
+    private float microFungusFadingFactor = 1f;
 
-    public Matrix4x4 microFungusMatrix;
+    private Matrix4x4 microFungusMatrix;
 
     public int microFungusRemainingDurationInTicks;
 
-    public Vector3 microFungusScale = new Vector3(3f, 1f, 3f);
+    private int nextFeedingTick;
 
-    public int nextFeedingTick;
+    private int nextFishMoteTick;
 
-    public int nextFishMoteTick;
-
-    public int nextUpdateTick;
+    private int nextUpdateTick;
 
     public CompPowerTrader powerComp;
 
@@ -78,7 +78,7 @@ internal class Building_AquacultureBasin : Building_WorkTable
 
     public float waterQuality = 0.2f;
 
-    public int breedingDurationInTicks
+    private int breedingDurationInTicks
     {
         get
         {
@@ -91,9 +91,9 @@ internal class Building_AquacultureBasin : Building_WorkTable
         }
     }
 
-    public bool isWellMaintained => maintenanceQuality >= 0.5f;
+    private bool isWellMaintained => maintenanceQuality >= 0.5f;
 
-    public bool isBadlyMaintained => maintenanceQuality == 0f;
+    private bool isBadlyMaintained => maintenanceQuality == 0f;
 
     public bool fishIsHarvestable => speciesDef != null && breedingProgressInTicks == breedingDurationInTicks;
 
@@ -148,7 +148,7 @@ internal class Building_AquacultureBasin : Building_WorkTable
         Scribe_Values.Look(ref nextFishMoteTick, "nextFishMoteTick");
     }
 
-    public override void Tick()
+    protected override void Tick()
     {
         base.Tick();
         if (microFungusRemainingDurationInTicks > 0)
@@ -174,7 +174,7 @@ internal class Building_AquacultureBasin : Building_WorkTable
         ComputeDrawingParameters();
     }
 
-    public void UpdateFoodAvailability()
+    private void UpdateFoodAvailability()
     {
         var num = 0f;
         foreach (var item in GenAdj.CellsAdjacentCardinal(this))
@@ -213,7 +213,7 @@ internal class Building_AquacultureBasin : Building_WorkTable
         foodIsAvailable = false;
     }
 
-    public void TryFeedFishes()
+    private void TryFeedFishes()
     {
         if (speciesDef == null || Find.TickManager.TicksGame < nextFeedingTick)
         {
@@ -232,7 +232,7 @@ internal class Building_AquacultureBasin : Building_WorkTable
         }
     }
 
-    public void ConsumeFoodFromHoppers()
+    private void ConsumeFoodFromHoppers()
     {
         var num = def.building.nutritionCostPerDispense;
         foreach (var item in GenAdj.CellsAdjacentCardinal(this))
@@ -268,7 +268,7 @@ internal class Building_AquacultureBasin : Building_WorkTable
         }
     }
 
-    public static bool IsAcceptableFeedstock(ThingDef def)
+    private static bool IsAcceptableFeedstock(ThingDef def)
     {
         return def.IsNutritionGivingIngestible && def.ingestible.preferability != 0 &&
                (def.ingestible.foodType == FoodTypeFlags.Seed || def.ingestible.foodType == FoodTypeFlags.Meat ||
@@ -277,7 +277,7 @@ internal class Building_AquacultureBasin : Building_WorkTable
                 def.ingestible.foodType == FoodTypeFlags.Fungus);
     }
 
-    public void UpdateWaterQuality()
+    private void UpdateWaterQuality()
     {
         if (microFungusRemainingDurationInTicks > 0)
         {
@@ -295,7 +295,7 @@ internal class Building_AquacultureBasin : Building_WorkTable
         waterQuality = Mathf.Clamp01(waterQuality);
     }
 
-    public void UpdateFishesHealth()
+    private void UpdateFishesHealth()
     {
         if (speciesDef == null)
         {
@@ -324,13 +324,13 @@ internal class Building_AquacultureBasin : Building_WorkTable
         fishesHealth = Mathf.Clamp01(fishesHealth);
     }
 
-    public void UpdateMaintenanceQuality()
+    private void UpdateMaintenanceQuality()
     {
         maintenanceQuality -= maintenanceVariation;
         maintenanceQuality = Mathf.Max(0f, maintenanceQuality);
     }
 
-    public void StopBreeding()
+    private void StopBreeding()
     {
         desiredSpeciesDef = speciesDef;
         speciesDef = null;
@@ -424,9 +424,16 @@ internal class Building_AquacultureBasin : Building_WorkTable
         command_Action.activateSound = SoundDef.Named("Click");
         command_Action.groupKey = num + 1;
         yield return command_Action;
+
+        var designator_Build = BuildCopyCommandUtility.FindAllowedDesignator(ThingDefOf.Hopper);
+        if (designator_Build != null)
+        {
+            yield return designator_Build;
+        }
     }
 
-    public void GetFishesNamePluralAndDescription(PawnKindDef speciesDef, out string namePlural, out string description)
+    private static void GetFishesNamePluralAndDescription(PawnKindDef speciesDef, out string namePlural,
+        out string description)
     {
         namePlural = "";
         description = "";
@@ -451,7 +458,8 @@ internal class Building_AquacultureBasin : Building_WorkTable
         }
     }
 
-    public void GetButtonTexturePath(PawnKindDef species, bool changingBredSpecies, out string buttonTexturePath)
+    private static void GetButtonTexturePath(PawnKindDef species, bool changingBredSpecies,
+        out string buttonTexturePath)
     {
         buttonTexturePath = "";
         if (changingBredSpecies)
@@ -491,7 +499,7 @@ internal class Building_AquacultureBasin : Building_WorkTable
         }
     }
 
-    public void SetDesiredSpecies()
+    private void SetDesiredSpecies()
     {
         PawnKindDef pawnKindDef2 = null;
         var pawnKindDef = desiredSpeciesDef ?? speciesDef;
@@ -571,7 +579,7 @@ internal class Building_AquacultureBasin : Building_WorkTable
         return stringBuilder.ToString();
     }
 
-    public void ComputeDrawingParameters()
+    private void ComputeDrawingParameters()
     {
         if (microFungusRemainingDurationInTicks > 0)
         {
@@ -586,7 +594,7 @@ internal class Building_AquacultureBasin : Building_WorkTable
         }
     }
 
-    public void ThrowFishMote()
+    private void ThrowFishMote()
     {
         if (!Position.ShouldSpawnMotesAt(Map) || Map.moteCounter.Saturated)
         {

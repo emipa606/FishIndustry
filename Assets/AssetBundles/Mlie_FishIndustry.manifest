@@ -1,0 +1,68 @@
+ManifestFileVersion: 0
+CRC: 3898219096
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 375f7097059ce6bae58b63d71de52c86
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2612ac43db082a73502ee80f2eceb73f
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 375f7097059ce6bae58b63d71de52c86
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Item/Resource/Oyster/Oyster3.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Sduiggles_south.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Blueblade.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Item/Resource/Pearl/Pearl3.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Mote/FishingRodNorth.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Sduiggles_north.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Item/Resource/Pearl/Pearl2.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Mote/FishingRodWest.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Item/Resource/MashgonShelled.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Item/Resource/TailteethSteak.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Blueblade_west.png
+- Assets/Data/Mlie.FishIndustry/Textures/Ui/Gizmos/MashgonWithChangeIcon.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Building/MenuIcon_FishingPierSpawner.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Item/Resource/Oyster/Oyster2.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Blueblade_east.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Sduiggles_east.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Mashgon_south.png
+- Assets/Data/Mlie.FishIndustry/Textures/Ui/Gizmos/BluebladeWithChangeIcon.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Tailteeth.png
+- Assets/Data/Mlie.FishIndustry/Textures/Ui/Gizmos/TailteethWithChangeIcon.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Tailteeth_north.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Seasnake.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Seasnake_east.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Tailteeth_east.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Mote/FishingRodEast.png
+- Assets/Data/Mlie.FishIndustry/Textures/Effects/MicroFungus.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Mote/FishingRodSouth.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Item/Resource/SeasnakeFilet.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Sduiggles.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Item/Resource/SduigglesTentacle.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Mashgon_east.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Mashgon_west.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Building/FishingPierPlaceWorkerZone.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Mashgon.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Seasnake_north.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Mashgon_north.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Blueblade_north.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Item/Resource/BluebladeFilet.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Item/Resource/Pearl/Pearl1.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Building/AquacultureBasin.png
+- Assets/Data/Mlie.FishIndustry/Textures/Ui/Designators/ZoneCreate_Fishing.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Tailteeth_south.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Blueblade_south.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Building/FishingPierSpawner.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Tailteeth_west.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Item/Resource/Oyster/Oyster1.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Pawn/Animal/Fish/Seasnake_south.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Projectile/Harpoon.png
+- Assets/Data/Mlie.FishIndustry/Textures/Things/Building/FishingPier.png
+Dependencies: []

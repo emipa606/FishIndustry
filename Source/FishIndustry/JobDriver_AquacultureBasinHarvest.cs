@@ -7,7 +7,7 @@ namespace FishIndustry;
 
 public class JobDriver_AquacultureBasinHarvest : JobDriver
 {
-    public readonly TargetIndex aquacultureBasinIndex = TargetIndex.A;
+    private readonly TargetIndex aquacultureBasinIndex = TargetIndex.A;
 
     public override bool TryMakePreToilReservations(bool errorOnFailed)
     {

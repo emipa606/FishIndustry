@@ -8,35 +8,35 @@ namespace FishIndustry;
 
 internal class Zone_Fishing : Zone
 {
-    public const float baseFishSpawnMtbZone = 420000f;
+    private const float baseFishSpawnMtbZone = 420000f;
 
-    public const int fishingZoneColorCount = 5;
+    private const int fishingZoneColorCount = 5;
 
-    public static int nextFishingZoneColorIndex;
+    private static int nextFishingZoneColorIndex;
 
     public bool allowFishing = true;
 
-    public float cachedFishSpawnMtb;
+    private float cachedFishSpawnMtb;
 
-    public string cachedSpeciesInZone = "";
+    private string cachedSpeciesInZone = "";
 
     public List<IntVec3> fishingSpots = [];
 
-    public bool isAffectedByBadTemperature;
+    private bool isAffectedByBadTemperature;
 
-    public bool isAffectedByBiome;
+    private bool isAffectedByBiome;
 
-    public bool isAffectedByMapCondition;
+    private bool isAffectedByMapCondition;
 
-    public int marshCellsCount;
+    private int marshCellsCount;
 
-    public int maxFishStock = -1;
+    private int maxFishStock = -1;
 
     public int nextUpdateTick;
 
-    public int oceanCellsCount;
+    private int oceanCellsCount;
 
-    public int riverCellsCount;
+    private int riverCellsCount;
 
     public Zone_Fishing()
     {
@@ -47,7 +47,7 @@ internal class Zone_Fishing : Zone
     {
     }
 
-    public int viableCellsCount => oceanCellsCount + riverCellsCount + marshCellsCount;
+    private int viableCellsCount => oceanCellsCount + riverCellsCount + marshCellsCount;
 
     public override bool IsMultiselectable => true;
 
@@ -66,32 +66,29 @@ internal class Zone_Fishing : Zone
         }
     }
 
-    public Color GetZoneColor(int colorIndex)
+    private static Color GetZoneColor(int colorIndex)
     {
         Color black;
         switch (colorIndex)
         {
             case 0:
                 black = Color.Lerp(new Color(0f, 0f, 1f), Color.gray, 0.5f);
-                black.a = 0.09f;
                 break;
             case 1:
                 black = Color.Lerp(new Color(0f, 1f, 1f), Color.gray, 0.5f);
-                black.a = 0.09f;
                 break;
             case 2:
                 black = Color.Lerp(new Color(0f, 0.5f, 1f), Color.gray, 0.5f);
-                black.a = 0.09f;
                 break;
             case 3:
                 black = Color.Lerp(new Color(0.5f, 1f, 1f), Color.gray, 0.5f);
-                black.a = 0.09f;
                 break;
             default:
                 black = Color.Lerp(new Color(0.5f, 0.5f, 1f), Color.gray, 0.5f);
-                black.a = 0.09f;
                 break;
         }
+
+        black.a = 0.09f;
 
         return black;
     }
@@ -138,7 +135,7 @@ internal class Zone_Fishing : Zone
         base.RemoveCell(c);
     }
 
-    public bool IsNearFishingZone(IntVec3 cell)
+    private bool IsNearFishingZone(IntVec3 cell)
     {
         var cardinalDirections = GenAdj.CardinalDirections;
         foreach (var intVec in cardinalDirections)
@@ -153,12 +150,12 @@ internal class Zone_Fishing : Zone
         return false;
     }
 
-    public bool IsBankCell(IntVec3 cell)
+    private bool IsBankCell(IntVec3 cell)
     {
         return cell.Standable(Map) && !Util_Zone_Fishing.IsAquaticTerrain(Map, cell);
     }
 
-    public bool IsBridgeCell(IntVec3 cell)
+    private bool IsBridgeCell(IntVec3 cell)
     {
         return cell.Standable(Map) && cell.GetTerrain(Map) == TerrainDefOf.Bridge;
     }
@@ -215,7 +212,7 @@ internal class Zone_Fishing : Zone
         }
     }
 
-    public void UpdateCellsAndFishingSpots()
+    private void UpdateCellsAndFishingSpots()
     {
         var list = new List<IntVec3>();
         foreach (var cell in Cells)
@@ -246,7 +243,7 @@ internal class Zone_Fishing : Zone
         }
     }
 
-    public void GetFreeBankAndBridgeCells(int requiredBankCellsCount, ref List<IntVec3> bankCells,
+    private void GetFreeBankAndBridgeCells(int requiredBankCellsCount, ref List<IntVec3> bankCells,
         ref List<IntVec3> bridgeCells)
     {
         var num = 0;
@@ -277,7 +274,7 @@ internal class Zone_Fishing : Zone
         }
     }
 
-    public void TrySpawnNewFish(ref List<IntVec3> bankCells, ref List<IntVec3> bridgeCells)
+    private void TrySpawnNewFish(ref List<IntVec3> bankCells, ref List<IntVec3> bridgeCells)
     {
         foreach (var bridgeCell in bridgeCells)
         {
