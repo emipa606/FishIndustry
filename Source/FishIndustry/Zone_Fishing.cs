@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using RimWorld;
 using UnityEngine;
@@ -215,12 +216,9 @@ internal class Zone_Fishing : Zone
     private void UpdateCellsAndFishingSpots()
     {
         var list = new List<IntVec3>();
-        foreach (var cell in Cells)
+        foreach (var cell in Cells.Where(cell => !Util_Zone_Fishing.IsAquaticTerrain(Map, cell) || !cell.Walkable(Map)))
         {
-            if (!Util_Zone_Fishing.IsAquaticTerrain(Map, cell) || !cell.Walkable(Map))
-            {
-                list.Add(cell);
-            }
+            list.Add(cell);
         }
 
         foreach (var item in list)
@@ -229,12 +227,9 @@ internal class Zone_Fishing : Zone
         }
 
         list.Clear();
-        foreach (var fishingSpot in fishingSpots)
+        foreach (var fishingSpot in fishingSpots.Where(fishingSpot => !IsNearFishingZone(fishingSpot)))
         {
-            if (!IsNearFishingZone(fishingSpot))
-            {
-                list.Add(fishingSpot);
-            }
+            list.Add(fishingSpot);
         }
 
         foreach (var item2 in list)

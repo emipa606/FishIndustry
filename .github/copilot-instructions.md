@@ -1,87 +1,115 @@
-Here's a detailed `.github/copilot-instructions.md` file for the FishIndustry mod project:
+# GitHub Copilot Instructions for FishIndustry (Continued) Mod
 
-
-# GitHub Copilot Instructions for FishIndustry Mod
+Welcome to the FishIndustry (Continued) mod for RimWorld! This mod adds various fish-related resources, buildings, and activities to your RimWorld game, allowing you to catch and breed fish, create new recipes, and experience new joy activities.
 
 ## Mod Overview and Purpose
 
-**Mod Name:** FishIndustry (Continued)
+FishIndustry (Continued) aims to enhance the fishing experience in RimWorld by adding several new elements:
 
-**Description:**  
-FishIndustry is a mod that expands the culinary and recreational aspects of RimWorld by introducing fish-related resources, buildings, and activities. Originally created by Rikiki, this continued version updates and refines the mod to enhance players' gameplay experience with fishing and aquaculture systems. The primary goal of the mod is to allow players to fully utilize water bodies in their colonies for food production and leisure.
+- **Fishing Zone**: A zone where fishers can catch fish from the water, with varying dangers depending on the biome.
+- **Fishing Pier**: A simple building that allows for safe fishing with the option to use corn or rice to enhance fish catch rates.
+- **Aquaculture Basin**: An advanced building used for breeding aquatic species, providing a renewable source of meat.
+- **New Recipes**: Added recipes at the campfire to cook grilled fish.
+- **Joy Food**: Oyster as a joy food.
+- **Meditative Joy Activity**: Watching shiny water on the fishing pier.
 
 ## Key Features and Systems
 
-1. **Fishing Zone:**
-   - Designate special zones where colonists can fish. 
-   - Beware of dangerous fauna like tailteeths depending on the biome.
+### Fishing Zone
+Players can designate a zone where fishers can fish. The danger level of the waters varies based on the biome, affecting the success rate of fishing.
 
-2. **Fishing Pier:**
-   - A structure that can be built over water for safe fishing. 
-   - Adding corn or rice can improve fishing efficiency.
+### Fishing Pier
+A simple building built on water that allows hunters to catch fish safely. Using corn or rice can increase the fish catch rate.
 
-3. **Aquaculture Basin:**
-   - Advanced structure for breeding aquatic species.
-   - Requires "Aquaculture" research after "Hydroponics."
-   - Provides a renewable and high-yield meat source.
+### Aquaculture Basin
+An advanced building used to breed aquatic species. It requires the "Aquaculture" research after "Hydroponics" and provides a renewable source of meat.
 
-4. **New Recipes:**
-   - Create grilled fish simple meals at the campfire.
+### New Recipes
+Several new recipes are added at the campfire, allowing players to cook grilled fish.
 
-5. **New Items and Activities:**
-   - Oyster as a joy food.
-   - Meditative activity at the fishing pier to watch the water.
+### Joy Food
+Oyster is introduced as a joy food in the game.
 
-6. **Job Management:**
-   - Fishing activities are classified as hunting jobs.
-   - Prioritized as: hunting > operating aquaculture basin > fishing at pier.
+### Joy Activity
+A new meditative joy activity is added on the fishing pier, allowing players to watch the water.
 
 ## Coding Patterns and Conventions
 
-- **Class Naming Conventions:**
-  - Classes are prefixed according to their functionality (e.g., `Building_`, `Zone_`, `JobDriver_`).
+### C# Files
+The C# files in this mod follow standard RimWorld conventions. Each file typically contains a class that extends or modifies existing RimWorld classes. For example:
+- `Alert_AquacultureBasinCriticalIssue.cs` defines an alert for issues with the aquaculture basin.
+- `Building_FishingPier.cs` defines the fishing pier building with methods for its functionality.
 
-- **Accessibility:**
-  - Internal classes are used for entities not needed outside their defining assembly.
-
-- **Inheritance:**
-  - Inherits from relevant base classes such as `Building_WorkTable` for buildings.
-
-- **Method Names:**
-  - Descriptive and follow PascalCase.
-  - Public methods reflect actions or states (e.g., `TryFeedFishes`, `StartMicroFungusInfestation`).
+### XML Files
+The XML files are used to define new game elements such as job definitions, joy giver definitions, terrain definitions, and thing definitions. For example:
+- `Jobs_Joy.xml` defines new jobs related to joy.
+- `JoyGivers.xml` defines new joy giver definitions.
+- `Terrain_FishingPierFloor.xml` defines the terrain for the fishing pier floor.
+- `Building_FishingPier.xml` defines the fishing pier building.
 
 ## XML Integration
 
-- Avoid overwriting default game definitions by using custom XML for new items.
-- Utilize XML PatchOperation to modify existing definitions without conflicts (overwriting has been removed in this version).
+XML files are crucial for defining new game elements. They should be placed in the appropriate directories within the mod's structure. Here is an example of how to structure an XML file:
+
+xml
+<Defs>
+  <JoyGiverDef>
+    <defName>WatchShinyWater</defName>
+    <label>Watch shiny water</label>
+    <description>Stand by the water and watch the shimmering waves.</description>
+    <jobDef>Job_Joy_WatchShinyWater</jobDef>
+    <requireCapablePawn>true</requireCapablePawn>
+    <targetFinderClass>TargetFinder_ShinyWater</targetFinderClass>
+  </JoyGiverDef>
+</Defs>
+
 
 ## Harmony Patching
 
-- Harmony patches should be used to safely alter existing game functionality.
-- Ensure each patch is well-documented, indicating what's modified and why.
-- Harmony can assist in ensuring compatibility with other mods by non-destructive alterations.
+Harmony patching is used to modify existing RimWorld code. Patches are typically defined in C# files using the Harmony library. Here is an example of a Harmony patch:
+
+csharp
+using HarmonyLib;
+using RimWorld;
+using Verse;
+
+namespace FishIndustry
+{
+    [HarmonyPatch(typeof(FishPier), "SpawnSetup")]
+    public static class Patch_FishPier_SpawnSetup
+    {
+        [HarmonyPostfix]
+        public static void Postfix(FishPier __instance)
+        {
+            // Custom logic after the original SpawnSetup method
+        }
+    }
+}
+
 
 ## Suggestions for Copilot
 
-While utilizing GitHub Copilot for this mod, consider the following suggestions:
+When using GitHub Copilot for this mod, keep the following in mind:
 
-1. **Pattern Recognition:**
-   - Ensure that Copilot follows established naming and coding conventions specific to RimWorld modding.
+- **Contextual Understanding**: Copilot can generate code snippets, but it may not always understand the full context of the mod. Review and test generated code thoroughly.
+- **Customization**: Copilot may suggest code that aligns with common patterns but may need customization for specific mod requirements.
+- **Integration**: Ensure that generated code integrates correctly with existing mod structures, especially XML and C# files.
+- **Testing**: Always test generated code in the game to ensure it works as expected and does not cause errors.
 
-2. **Harmony Patches:**
-   - Help streamline the generation of harmony patches from within methods to encourage non-destructive changes.
+Feel free to ask for help on the Discord-channel if you encounter any issues or have specific questions about the mod's functionality.
 
-3. **XML Patch Creation:**
-   - Assist in generating XML patch operations for minor modifications to existing definitions.
-
-4. **New Class Scaffolding:**
-   - Aid in scaffolding typical class structures, especially for extending existing RimWorld functionality.
-
-5. **Error Handling:**
-   - Propose standard error handling patterns, particularly for catching and dealing with game-specific exceptions.
-
-By adhering to these guidelines, we can ensure that the FishIndustry mod remains a stable and enjoyable addition to any player's mod list, enhancing their RimWorld experience with new aquatic adventures.
+## Project Solution Guidelines
+- Relevant mod XML files are included as Solution Items under the solution folder named XML, these can be read and modified from within the solution.
+- Use these in-solution XML files as the primary files for reference and modification.
+- The `.github/copilot-instructions.md` file is included in the solution under the `.github` solution folder, so it should be read/modified from within the solution instead of using paths outside the solution. Update this file once only, as it and the parent-path solution reference point to the same file in this workspace.
+- When making functional changes in this mod, ensure the documented features stay in sync with implementation; use the in-solution `.github` copy as the primary file.
+- In the solution is also a project called Assembly-CSharp, containing a read-only version of the decompiled game source, for reference and debugging purposes.
+- For any new documentation, update this copilot-instructions.md file rather than creating separate documentation files.
 
 
-This document is structured to provide clear guidelines and suggestions that align with both the technical and conceptual directions of the FishIndustry mod.
+## Hard rules (must follow)
+- Do NOT run commands that modify the repo (no git commit, git apply, dotnet format) unless explicitly asked.
+- Prefer minimal reads: read only the smallest code region needed (around the suspicious lines).
+- When mentioning SonarQube issues, automatically use the SonarQube MCP service to fetch and address issues instead of making inferred fixes without querying SonarQube first.
+- When mentioning the rimworld log, automatically use the Rimworld MCP service to fetch the log.
+

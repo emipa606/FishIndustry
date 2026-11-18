@@ -204,15 +204,8 @@ public static class Util_Zone_Fishing
         var stringBuilder = new StringBuilder();
         foreach (var fishSpecies in Util_FishIndustry.GetFishSpeciesList(biome))
         {
-            if (oceanCellsCount > 0 && fishSpecies.livesInOcean)
-            {
-                stringBuilder.AppendWithComma(fishSpecies.label);
-            }
-            else if (riverCellsCount > 0 && fishSpecies.livesInRiver)
-            {
-                stringBuilder.AppendWithComma(fishSpecies.label);
-            }
-            else if (marshCellsCount > 0 && fishSpecies.livesInMarsh)
+            if (oceanCellsCount > 0 && fishSpecies.livesInOcean && riverCellsCount > 0 && fishSpecies.livesInRiver ||
+                marshCellsCount > 0 && fishSpecies.livesInMarsh)
             {
                 stringBuilder.AppendWithComma(fishSpecies.label);
             }

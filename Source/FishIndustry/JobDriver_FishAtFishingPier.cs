@@ -120,10 +120,25 @@ public class JobDriver_FishAtFishingPier : JobDriver
                 {
                     CurToil.defaultDuration = fishingDuration;
                     ticksLeftThisToil = fishingDuration;
-                    var thingDef = fishingPier.Rotation == Rot4.North ? Util_FishIndustry.MoteFishingRodNorthDef :
-                        fishingPier.Rotation == Rot4.East ? Util_FishIndustry.MoteFishingRodEastDef :
-                        !(fishingPier.Rotation == Rot4.South) ? Util_FishIndustry.MoteFishingRodWestDef :
-                        Util_FishIndustry.MoteFishingRodSouthDef;
+                    ThingDef thingDef;
+                    if (fishingPier.Rotation == Rot4.North)
+                    {
+                        thingDef = Util_FishIndustry.MoteFishingRodNorthDef;
+                    }
+                    else
+                    {
+                        if (fishingPier.Rotation == Rot4.East)
+                        {
+                            thingDef = Util_FishIndustry.MoteFishingRodEastDef;
+                        }
+                        else
+                        {
+                            thingDef = fishingPier.Rotation != Rot4.South
+                                ? Util_FishIndustry.MoteFishingRodWestDef
+                                : Util_FishIndustry.MoteFishingRodSouthDef;
+                        }
+                    }
+
                     fishingRodMote = (Mote)ThingMaker.MakeThing(thingDef);
                     fishingRodMote.exactPosition = fishingPier.fishingSpotCell.ToVector3Shifted();
                     fishingRodMote.Scale = 1f;
@@ -192,10 +207,7 @@ public class JobDriver_FishAtFishingPier : JobDriver
                                     HealthUtility.DamageUntilDead(generatePawn);
                                     var corpse = generatePawn.ParentHolder as Corpse;
                                     var compRottable = corpse.TryGetComp<CompRottable>();
-                                    if (compRottable != null)
-                                    {
-                                        compRottable.RotProgress = 1200000f;
-                                    }
+                                    compRottable?.RotProgress = 1200000f;
 
                                     GenSpawn.Spawn(corpse, fishingPier.bankCell, Map);
                                     string text =
@@ -219,18 +231,30 @@ public class JobDriver_FishAtFishingPier : JobDriver
                         else
                         {
                             var c = fishingPier.aquaticCells.RandomElement();
-                            PawnKindDef pawnKindDef = Map.terrainGrid.TerrainAt(c) == TerrainDefOf.WaterOceanShallow ||
-                                                      Map.terrainGrid.TerrainAt(c) == TerrainDefOf.WaterOceanDeep
-                                ? (from fishSpecies in Util_FishIndustry.GetFishSpeciesList(Map.Biome)
+                            PawnKindDef pawnKindDef;
+                            if (Map.terrainGrid.TerrainAt(c) == TerrainDefOf.WaterOceanShallow ||
+                                Map.terrainGrid.TerrainAt(c) == TerrainDefOf.WaterOceanDeep)
+                            {
+                                pawnKindDef = (from fishSpecies in Util_FishIndustry.GetFishSpeciesList(Map.Biome)
                                     where fishSpecies.livesInOcean
-                                    select fishSpecies).RandomElementByWeight(def => def.commonality)
-                                : Map.terrainGrid.TerrainAt(c) == TerrainDef.Named("Marsh")
-                                    ? (from fishSpecies in Util_FishIndustry.GetFishSpeciesList(Map.Biome)
+                                    select fishSpecies).RandomElementByWeight(def => def.commonality);
+                            }
+                            else
+                            {
+                                if (Map.terrainGrid.TerrainAt(c) == TerrainDef.Named("Marsh"))
+                                {
+                                    pawnKindDef = (from fishSpecies in Util_FishIndustry.GetFishSpeciesList(Map.Biome)
                                         where fishSpecies.livesInMarsh
-                                        select fishSpecies).RandomElementByWeight(def => def.commonality)
-                                    : (from fishSpecies in Util_FishIndustry.GetFishSpeciesList(Map.Biome)
+                                        select fishSpecies).RandomElementByWeight(def => def.commonality);
+                                }
+                                else
+                                {
+                                    pawnKindDef = (from fishSpecies in Util_FishIndustry.GetFishSpeciesList(Map.Biome)
                                         where fishSpecies.livesInRiver
                                         select fishSpecies).RandomElementByWeight(def => def.commonality);
+                                }
+                            }
+
                             var pawn2 = PawnGenerator.GeneratePawn(pawnKindDef);
                             ExecutionUtility.DoExecutionByCut(pawn, pawn2);
                             var corpse2 = pawn2.ParentHolder as Corpse;

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using RimWorld;
 using Verse;
 
@@ -88,21 +87,21 @@ public static class Util_FishIndustry
     public static string MashgonTexturePath =>
         ModLister.OdysseyInstalled
             ? null
-            : PawnKindDef.Named("PawnKindDefFishMashgon").lifeStages.First().bodyGraphicData.texPath;
+            : PawnKindDef.Named("PawnKindDefFishMashgon").lifeStages[0].bodyGraphicData.texPath;
 
     public static string MashgonTexturePathWithChangeIcon => "Ui/Gizmos/MashgonWithChangeIcon";
 
     public static string BluebladeTexturePath =>
         ModLister.OdysseyInstalled
             ? null
-            : PawnKindDef.Named("PawnKindDefFishBlueblade").lifeStages.First().bodyGraphicData.texPath;
+            : PawnKindDef.Named("PawnKindDefFishBlueblade").lifeStages[0].bodyGraphicData.texPath;
 
     public static string BluebladeTexturePathWithChangeIcon => "Ui/Gizmos/BluebladeWithChangeIcon";
 
     public static string TailteethTexturePath =>
         ModLister.OdysseyInstalled
             ? null
-            : PawnKindDef.Named("PawnKindDefFishTailteeth").lifeStages.First().bodyGraphicData.texPath;
+            : PawnKindDef.Named("PawnKindDefFishTailteeth").lifeStages[0].bodyGraphicData.texPath;
 
     public static string TailteethTexturePathWithChangeIcon => "Ui/Gizmos/TailteethWithChangeIcon";
 

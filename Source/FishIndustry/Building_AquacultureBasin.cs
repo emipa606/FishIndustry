@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using RimWorld;
 using UnityEngine;
@@ -353,7 +352,7 @@ internal class Building_AquacultureBasin : Building_WorkTable
         }
 
         fishesHealth = 1f;
-        breedingSpeciesTexture = MaterialPool.MatFrom(speciesDef.lifeStages.First().bodyGraphicData.texPath,
+        breedingSpeciesTexture = MaterialPool.MatFrom(speciesDef.lifeStages[0].bodyGraphicData.texPath,
             ShaderDatabase.Transparent);
     }
 
@@ -572,7 +571,7 @@ internal class Building_AquacultureBasin : Building_WorkTable
 
         var text2 = list.Count != 1
             ? $"{"FishIndustry.Issues".Translate()}: {list.ToCommaList()}"
-            : $"{"FishIndustry.Issue".Translate()}: {list.First()}";
+            : $"{"FishIndustry.Issue".Translate()}: {list[0]}";
         stringBuilder.AppendLine();
         stringBuilder.Append(text2);
 

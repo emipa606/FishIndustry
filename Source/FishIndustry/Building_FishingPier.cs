@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using RimWorld;
 using UnityEngine;
@@ -25,9 +26,9 @@ internal class Building_FishingPier : Building_WorkTable
 
     private string cachedSpeciesInZone = "";
 
-    public IntVec3 fishingSpotCell = new(0, 0, 0);
-
     public int fishStock = 1;
+
+    public IntVec3 fishingSpotCell = new(0, 0, 0);
 
     private bool isAffectedByBadTemperature;
 
@@ -47,9 +48,9 @@ internal class Building_FishingPier : Building_WorkTable
 
     public IntVec3 riverCell = new(0, 0, 0);
 
-    private int riverCellsCount;
-
     private string riverCellTerrainDefAsString;
+
+    private int riverCellsCount;
 
     private int viableCellsCount => oceanCellsCount + riverCellsCount + marshCellsCount;
 
@@ -150,12 +151,10 @@ internal class Building_FishingPier : Building_WorkTable
     private void UpdateCells()
     {
         aquaticCells.Clear();
-        foreach (var item in GenRadial.RadialCellsAround(fishingSpotCell, aquaticAreaRadius, false))
+        foreach (var item in GenRadial.RadialCellsAround(fishingSpotCell, aquaticAreaRadius, false)
+                     .Where(c => c.InBounds(Map) && Util_Zone_Fishing.IsAquaticTerrain(Map, c)))
         {
-            if (item.InBounds(Map) && Util_Zone_Fishing.IsAquaticTerrain(Map, item))
-            {
-                aquaticCells.Add(item);
-            }
+            aquaticCells.Add(item);
         }
     }
 

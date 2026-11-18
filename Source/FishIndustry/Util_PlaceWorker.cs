@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Verse;
 
 namespace FishIndustry;
@@ -13,15 +14,7 @@ public static class Util_PlaceWorker
         list.AddRange(map.listerThings.ThingsOfDef(Util_FishIndustry.FishingPierDef));
         list.AddRange(map.listerThings.ThingsOfDef(Util_FishIndustry.FishingPierDef.blueprintDef));
         list.AddRange(map.listerThings.ThingsOfDef(Util_FishIndustry.FishingPierDef.frameDef));
-        foreach (var item in list)
-        {
-            if (item.Position.InHorDistOf(position, distance))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return list.Any(item => item.Position.InHorDistOf(position, distance));
     }
 
     public static bool IsNearFishingZone(Map map, IntVec3 position, float distance)
@@ -45,20 +38,12 @@ public static class Util_PlaceWorker
 
     public static int GetAquaticCellsInRadius(Map map, IntVec3 position, float radius)
     {
-        var num = 0;
         if (radius <= 0f)
         {
             return 0;
         }
 
-        foreach (var item in GenRadial.RadialCellsAround(position, radius, true))
-        {
-            if (item.InBounds(map) && Util_Zone_Fishing.IsAquaticTerrain(map, item))
-            {
-                num++;
-            }
-        }
-
-        return num;
+        return GenRadial.RadialCellsAround(position, radius, true)
+            .Count(item => item.InBounds(map) && Util_Zone_Fishing.IsAquaticTerrain(map, item));
     }
 }

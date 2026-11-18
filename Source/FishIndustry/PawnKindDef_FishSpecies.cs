@@ -6,9 +6,8 @@ namespace FishIndustry;
 
 public class PawnKindDef_FishSpecies : PawnKindDef
 {
-    public readonly float breedingDurationInDays = 1f;
-
     public readonly int breedQuantity = 0;
+    public readonly float breedingDurationInDays = 1f;
 
     public readonly float commonality = 0.2f;
 

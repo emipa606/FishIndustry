@@ -6,4 +6,22 @@
     <BuildType Name="Release" />
   </Configurations>
   <Project Path="FishIndustry/FishIndustry.csproj" />
+  <Folder Name="/XML/1.7/Defs/JoyGiverDefs/">
+    <File Path="../1.7/Defs/JoyGiverDefs/JoyGivers.xml" />
+  </Folder>
+  <Folder Name="/XML/1.7/Defs/ThingDefs_Buildings/">
+    <File Path="../1.7/Defs/ThingDefs_Buildings/Building_FishingPier.xml" />
+  </Folder>
+  <Folder Name="/XML/Languages/English/Keyed/">
+    <File Path="../Languages/English/Keyed/FishIndustry_Strings.xml" />
+  </Folder>
+  <Folder Name="/XML/1.7/Defs/TerrainDefs/">
+    <File Path="../1.7/Defs/TerrainDefs/Terrain_FishingPierFloor.xml" />
+  </Folder>
+  <Folder Name="/XML/1.7/Defs/JobDefs/">
+    <File Path="../1.7/Defs/JobDefs/Jobs_Joy.xml" />
+  </Folder>
+  <Folder Name="/XML/About/">
+    <File Path="../About/about.xml" />
+  </Folder>
 </Solution>

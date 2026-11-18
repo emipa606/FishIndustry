@@ -67,10 +67,25 @@ public class JobDriver_FishAtFishingZone : JobDriver
                 if (fishingRodMote.DestroyedOrNull())
                 {
                     var cell = TargetB.Cell;
-                    var thingDef = cardinalDir == IntVec3.North ? Util_FishIndustry.MoteFishingRodNorthDef :
-                        cardinalDir == IntVec3.East ? Util_FishIndustry.MoteFishingRodEastDef :
-                        !(cardinalDir == IntVec3.South) ? Util_FishIndustry.MoteFishingRodWestDef :
-                        Util_FishIndustry.MoteFishingRodSouthDef;
+                    ThingDef thingDef;
+                    if (cardinalDir == IntVec3.North)
+                    {
+                        thingDef = Util_FishIndustry.MoteFishingRodNorthDef;
+                    }
+                    else
+                    {
+                        if (cardinalDir == IntVec3.East)
+                        {
+                            thingDef = Util_FishIndustry.MoteFishingRodEastDef;
+                        }
+                        else
+                        {
+                            thingDef = cardinalDir != IntVec3.South
+                                ? Util_FishIndustry.MoteFishingRodWestDef
+                                : Util_FishIndustry.MoteFishingRodSouthDef;
+                        }
+                    }
+
                     fishingRodMote = (Mote)ThingMaker.MakeThing(thingDef);
                     fishingRodMote.exactPosition = cell.ToVector3Shifted();
                     fishingRodMote.Scale = 1f;
@@ -115,19 +130,30 @@ public class JobDriver_FishAtFishingZone : JobDriver
                         }
                         else
                         {
-                            PawnKindDef pawnKindDef =
-                                Map.terrainGrid.TerrainAt(TargetLocA) == TerrainDefOf.WaterOceanShallow ||
-                                Map.terrainGrid.TerrainAt(TargetLocA) == TerrainDefOf.WaterOceanDeep
-                                    ? (from fishSpecies in Util_FishIndustry.GetFishSpeciesList(Map.Biome)
-                                        where fishSpecies.livesInOcean
-                                        select fishSpecies).RandomElementByWeight(def => def.commonality)
-                                    : Map.terrainGrid.TerrainAt(TargetLocA) != TerrainDef.Named("Marsh")
-                                        ? (from fishSpecies in Util_FishIndustry.GetFishSpeciesList(Map.Biome)
-                                            where fishSpecies.livesInRiver
-                                            select fishSpecies).RandomElementByWeight(def => def.commonality)
-                                        : (from fishSpecies in Util_FishIndustry.GetFishSpeciesList(Map.Biome)
-                                            where fishSpecies.livesInMarsh
-                                            select fishSpecies).RandomElementByWeight(def => def.commonality);
+                            PawnKindDef pawnKindDef;
+                            if (Map.terrainGrid.TerrainAt(TargetLocA) == TerrainDefOf.WaterOceanShallow ||
+                                Map.terrainGrid.TerrainAt(TargetLocA) == TerrainDefOf.WaterOceanDeep)
+                            {
+                                pawnKindDef = (from fishSpecies in Util_FishIndustry.GetFishSpeciesList(Map.Biome)
+                                    where fishSpecies.livesInOcean
+                                    select fishSpecies).RandomElementByWeight(def => def.commonality);
+                            }
+                            else
+                            {
+                                if (Map.terrainGrid.TerrainAt(TargetLocA) != TerrainDef.Named("Marsh"))
+                                {
+                                    pawnKindDef = (from fishSpecies in Util_FishIndustry.GetFishSpeciesList(Map.Biome)
+                                        where fishSpecies.livesInRiver
+                                        select fishSpecies).RandomElementByWeight(def => def.commonality);
+                                }
+                                else
+                                {
+                                    pawnKindDef = (from fishSpecies in Util_FishIndustry.GetFishSpeciesList(Map.Biome)
+                                        where fishSpecies.livesInMarsh
+                                        select fishSpecies).RandomElementByWeight(def => def.commonality);
+                                }
+                            }
+
                             var generatePawn = PawnGenerator.GeneratePawn(pawnKindDef);
                             ExecutionUtility.DoExecutionByCut(pawn, generatePawn);
                             var corpse = generatePawn.ParentHolder as Corpse;
